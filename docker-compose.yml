@@ -15,7 +15,6 @@ services:
 
     db:
         image: mysql/mysql-server:8.0 # ARM-compatible version
-        container_name: db
         environment:
             MYSQL_DATABASE: wordpress
             MYSQL_USER: user
