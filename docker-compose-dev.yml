@@ -1,15 +1,15 @@
 services:
     wordpress:
-        image: wordpress:latest
+        build: ./
         environment:
             WORDPRESS_DB_HOST: db
             WORDPRESS_DB_USER: user
             WORDPRESS_DB_PASSWORD: password
             WORDPRESS_DB_NAME: wordpress
+        volumes:
+            - ./:/var/www/
         ports:
             - "8000:80"
-        volumes:
-            - wordpress_data:/var/www/html
         depends_on:
             - db
 
@@ -25,5 +25,4 @@ services:
             - db_data:/var/lib/mysql
 
 volumes:
-    wordpress_data:
     db_data:
