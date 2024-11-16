@@ -1,17 +1,23 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/php
 {
-	"name": "codekaizen-website-wp",
+	"name": "CodeKaizen Website Backend",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	// "dockerComposeFile": ["../docker-compose.yml", "./docker-compose.yml"],
 	"dockerComposeFile": ["../docker-compose-dev.yml"],
 	"service": "wordpress",
-	"workspaceFolder": "/var/www/"
+	"workspaceFolder": "/var/www/",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"esbenp.prettier-vscode",
+				"gruntfuggly.todo-tree"			]
+		}
+	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [8080]
