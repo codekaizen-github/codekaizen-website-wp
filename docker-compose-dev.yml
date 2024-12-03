@@ -2,26 +2,53 @@ services:
     wordpress:
         build: ./
         environment:
-            WORDPRESS_DB_HOST: db
-            WORDPRESS_DB_USER: user
-            WORDPRESS_DB_PASSWORD: password
-            WORDPRESS_DB_NAME: wordpress
+            WORDPRESS_HOST_PORT: ${WORDPRESS_HOST_PORT}
+            WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+            WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+            WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+            WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+            WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
+            WORDPRESS_CONFIG_WP_HOME: ${WORDPRESS_CONFIG_WP_HOME}
+            WORDPRESS_CONFIG_WP_SITEURL: ${WORDPRESS_CONFIG_WP_SITEURL}
+            WORDPRESS_CONFIG_SITE_TITLE: ${WORDPRESS_CONFIG_SITE_TITLE}
+            WORDPRESS_CONFIG_ADMIN_USER: ${WORDPRESS_CONFIG_ADMIN_USER}
+            WORDPRESS_CONFIG_ADMIN_PASSWORD: ${WORDPRESS_CONFIG_ADMIN_PASSWORD}
+            WORDPRESS_CONFIG_ADMIN_EMAIL: ${WORDPRESS_CONFIG_ADMIN_EMAIL}
+            WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA}
+            WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
+            ADMINER_HOST_PORT: ${ADMINER_HOST_PORT}
         volumes:
             - ./:/var/www/
         ports:
-            - "8000:80"
+            - "80:80"
         depends_on:
             - db
+        networks:
+            codekaizen-network:
+                aliases:
+                    - wordpress
+                    - codekaizen-wordpress
+                    - ${WORDPRESS_HOST_NAME}
+            codekaizen-wordpress:
 
     db:
         image: mysql/mysql-server:8.0 # ARM-compatible version
         environment:
-            MYSQL_DATABASE: wordpress
-            MYSQL_USER: user
-            MYSQL_PASSWORD: password
-            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+            MYSQL_USER: ${WORDPRESS_DB_USER}
+            MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         volumes:
             - db_data:/var/lib/mysql
+        networks:
+            codekaizen-wordpress:
+                aliases:
+                    - db
+
+networks:
+    codekaizen-network:
+        external: true
+    codekaizen-wordpress:
 
 volumes:
     db_data:
