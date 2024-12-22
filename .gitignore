@@ -2,7 +2,7 @@
 .DS_Store
 
 # Uploads
-/wp-content/uploads/
+html/wp-content/uploads/
 
 # Log files
 *.log
