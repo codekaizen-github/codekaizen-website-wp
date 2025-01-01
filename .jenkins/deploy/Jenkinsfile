@@ -1,4 +1,5 @@
 pipeline {
+    // Trigger deployment
     agent none
     environment {
         GHCR_REGISTRY = 'ghcr.io' // GitHub Container Registry
