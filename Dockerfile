@@ -1,7 +1,7 @@
+FROM php:8.1-apache AS base
+
 ARG REPO=codekaizen-website-wp
 ARG OWNER=codekaizen-github
-
-FROM php:8.1-apache AS base
 
 LABEL org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}
 
