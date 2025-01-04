@@ -134,6 +134,7 @@ pipeline {
                             keyFileVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE', \
                             // usernameVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_USERNAME' \
                         ), \
+                        string(credentialsId: 'jenkins-github-ghcr-pat-token-andrewjdawes', variable: 'JENKINS_CREDENTIAL_JENKINS_GITHUB_GHCR_PAT_TOKEN_ANDREWJDAWES'), \
                         string(credentialsId: 'codekaizen-website-wordpress-mysql-root-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_MYSQL_ROOT_PASSWORD'), \
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-name', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_NAME'), \
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-user', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_USER'), \
