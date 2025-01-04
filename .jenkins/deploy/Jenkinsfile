@@ -5,7 +5,6 @@ pipeline {
         GHCR_USER = 'ASDFASDF' // This can technically be anything. The GitHub PAT is what actually authenticates to GHCR.
         // GHCR_REPOSITORY = 'your-github-username/your-image-name' # Actually, get this dynamically from Jenkins env vars
         GHCR_CREDENTIALS_ID = 'jenkins-github-ghcr-pat-token-andrewjdawes' // Jenkins Credentials ID for a GitHub PAT Token with read/write access to GHCR packages
-        TEST_CREDENTIALS = credentials('jenkins-github-ghcr-pat-token-andrewjdawes')
     }
     stages {
         // Check out this way to detect if you are building a tag or not: https://www.youtube.com/watch?v=saiCjlJpfdA
@@ -122,7 +121,8 @@ pipeline {
                 docker {
                     alwaysPull true
                     registryUrl "https://ghcr.io"
-                    registryCredentialsId "jenkins-github-ghcr-pat-token-andrewjdawes"
+                    // Has to be a Jenkins username/password credential - not just string. Otherwise, Jenkins will say it can't find the credential.
+                    registryCredentialsId "jenkins-github-ghcr-pat-token-andrewjdawes-username-password"
                     image 'ghcr.io/codekaizen-github/codekaizen-website-wp-deploy:latest'
                 }
             }
@@ -134,7 +134,6 @@ pipeline {
                             keyFileVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE', \
                             // usernameVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_USERNAME' \
                         ), \
-                        string(credentialsId: 'jenkins-github-ghcr-pat-token-andrewjdawes', variable: 'JENKINS_CREDENTIAL_JENKINS_GITHUB_GHCR_PAT_TOKEN_ANDREWJDAWES'), \
                         string(credentialsId: 'codekaizen-website-wordpress-mysql-root-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_MYSQL_ROOT_PASSWORD'), \
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-name', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_NAME'), \
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-user', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_USER'), \
@@ -143,14 +142,14 @@ pipeline {
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-email', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_EMAIL'), \
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_PASSWORD') \
                     ]) {
-                        sh """
+                        sh '''
                         echo "Setting up SSH credentials inside Docker container..."
                         mkdir -p ~/.ssh
-                        cp ${SSH_KEY_FILE} ~/.ssh/id_rsa
+                        cp ${JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE} ~/.ssh/id_rsa
                         chmod 600 ~/.ssh/id_rsa
 
                         bash /workspace/entrypoint.sh
-                        """
+                        '''
                     }
                 }
             }
