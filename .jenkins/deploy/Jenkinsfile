@@ -114,6 +114,9 @@ pipeline {
             }
         }
         stage('Deploy to Portainer') {
+            when {
+                branch 'main';
+            }
             agent {
                 docker {
                     alwaysPull true
