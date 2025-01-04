@@ -124,6 +124,7 @@ pipeline {
                     // Has to be a Jenkins username/password credential - not just string. Otherwise, Jenkins will say it can't find the credential.
                     registryCredentialsId "jenkins-github-ghcr-pat-token-andrewjdawes-username-password"
                     image 'ghcr.io/codekaizen-github/codekaizen-website-wp-deploy:latest'
+                    args "--entrypoint ''"
                 }
             }
             steps {
