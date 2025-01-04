@@ -135,13 +135,13 @@ pipeline {
                             keyFileVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE', \
                             // usernameVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_USERNAME' \
                         ), \
-                        string(credentialsId: 'codekaizen-website-wordpress-mysql-root-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_MYSQL_ROOT_PASSWORD'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-name', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_NAME'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-user', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_USER'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_PASSWORD'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-user', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_USER'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-email', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_EMAIL'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_PASSWORD') \
+                        string(credentialsId: 'codekaizen-website-wordpress-mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-name', variable: 'WORDPRESS_DB_NAME'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-user', variable: 'WORDPRESS_DB_USER'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-password', variable: 'WORDPRESS_DB_PASSWORD'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-user', variable: 'WORDPRESS_CONFIG_ADMIN_USER'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-email', variable: 'WORDPRESS_CONFIG_ADMIN_EMAIL'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-password', variable: 'WORDPRESS_CONFIG_ADMIN_PASSWORD') \
                     ]) {
                         sh '''
                         echo "Setting up SSH credentials inside Docker container..."
