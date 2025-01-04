@@ -124,7 +124,7 @@ pipeline {
                     // Has to be a Jenkins username/password credential - not just string. Otherwise, Jenkins will say it can't find the credential.
                     registryCredentialsId "jenkins-github-ghcr-pat-token-andrewjdawes-username-password"
                     image 'ghcr.io/codekaizen-github/codekaizen-website-wp-deploy:latest'
-                    args "--entrypoint ''"
+                    args "-u root --entrypoint ''"
                 }
             }
             steps {
@@ -145,9 +145,9 @@ pipeline {
                     ]) {
                         sh '''
                         echo "Setting up SSH credentials inside Docker container..."
-                        mkdir -p ~/.ssh
-                        cp ${JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE} ~/.ssh/id_rsa
-                        chmod 600 ~/.ssh/id_rsa
+                        mkdir -p $HOME/.ssh
+                        cp ${JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE} $HOME/.ssh/id_rsa
+                        chmod 600 $HOME/.ssh/id_rsa
 
                         bash /workspace/entrypoint.sh
                         '''
