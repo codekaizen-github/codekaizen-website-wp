@@ -113,5 +113,42 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Portainer') {
+            agent {
+                docker {
+                    alwaysPull true
+                    registryUrl "https://ghcr.io"
+                    registryCredentialsId "jenkins-github-ghcr-pat-token-andrewjdawes"
+                    image 'ghcr.io/codekaizen-github/codekaizen-website-wp-deploy:latest'
+                }
+            }
+            steps {
+                script {
+                    withCredentials(bindings: [ \
+                        sshUserPrivateKey( \
+                            credentialsId: 'application-deployment-previously-authorized-private-key', \
+                            keyFileVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE', \
+                            // usernameVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_USERNAME' \
+                        ), \
+                        string(credentialsId: 'codekaizen-website-wordpress-mysql-root-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_MYSQL_ROOT_PASSWORD'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-name', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_NAME'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-user', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_USER'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_DB_PASSWORD'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-user', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_USER'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-email', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_EMAIL'), \
+                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-password', variable: 'JENKINS_CREDENTIAL_CODEKAIZEN_WEBSITE_WORDPRESS_WORDPRESS_CONFIG_ADMIN_PASSWORD') \
+                    ]) {
+                        sh """
+                        echo "Setting up SSH credentials inside Docker container..."
+                        mkdir -p ~/.ssh
+                        cp ${SSH_KEY_FILE} ~/.ssh/id_rsa
+                        chmod 600 ~/.ssh/id_rsa
+
+                        bash /workspace/entrypoint.sh
+                        """
+                    }
+                }
+            }
+        }
     }
 }
