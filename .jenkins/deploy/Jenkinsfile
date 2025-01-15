@@ -139,9 +139,6 @@ pipeline {
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-name', variable: 'WORDPRESS_DB_NAME'), \
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-user', variable: 'WORDPRESS_DB_USER'), \
                         string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-password', variable: 'WORDPRESS_DB_PASSWORD'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-user', variable: 'WORDPRESS_CONFIG_ADMIN_USER'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-email', variable: 'WORDPRESS_CONFIG_ADMIN_EMAIL'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-config-admin-password', variable: 'WORDPRESS_CONFIG_ADMIN_PASSWORD') \
                     ]) {
                         sh '''
                         echo "Setting up SSH credentials inside Docker container..."
