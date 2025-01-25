@@ -17,6 +17,8 @@ services:
             WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA}
             WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
             ADMINER_HOST_PORT: ${ADMINER_HOST_PORT}
+            NEXTAPP_BASE_API_URL: ${NEXTAPP_BASE_API_URL}
+            NEXTAPP_REVALIDATE_SECRET: ${NEXTAPP_REVALIDATE_SECRET}
         volumes:
             - ./:/var/www/
         ports:
