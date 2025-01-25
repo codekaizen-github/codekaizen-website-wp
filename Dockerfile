@@ -1,5 +1,10 @@
 FROM php:8.1-apache AS base
 
+ARG REPO=codekaizen-website-wp
+ARG OWNER=codekaizen-github
+
+LABEL org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}
+
 # persistent dependencies
 RUN set -eux; \
     apt-get update; \
