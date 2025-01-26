@@ -36,5 +36,7 @@ function codekaizen_revalidate_blog_posts() {
     }
 }
 
+// This is completely pointless, but I need to commit a change
+
 // Revalidate blog posts whenever a post is edited
 add_action( 'edit_post', 'codekaizen_revalidate_blog_posts' );
