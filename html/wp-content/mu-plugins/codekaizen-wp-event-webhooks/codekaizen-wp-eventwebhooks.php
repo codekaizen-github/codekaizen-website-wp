@@ -24,10 +24,11 @@ function codekaizen_revalidate_blog_posts() {
 
     $nextapp_full_url = $nextapp_base_api_url . $nextapp_revalidateBlogPosts_endpoint;
 
-    $response = wp_remote_get( $nextapp_full_url, array(
+    $response = wp_remote_post( $nextapp_full_url, array(
         'headers' => array(
             'Authorization' => 'Bearer ' . $nextapp_revalidate_secret
-        )
+        ),
+        'blocking' => false
     ));
 
     if ( is_wp_error( $response ) ) {
