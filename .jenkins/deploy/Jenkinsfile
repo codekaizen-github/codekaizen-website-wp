@@ -123,7 +123,7 @@ pipeline {
                     registryUrl "https://ghcr.io"
                     // Has to be a Jenkins username/password credential - not just string. Otherwise, Jenkins will say it can't find the credential.
                     registryCredentialsId "jenkins-github-ghcr-pat-token-andrewjdawes-username-password"
-                    image 'ghcr.io/codekaizen-github/codekaizen-website-wp-deploy:v1'
+                    image 'ghcr.io/codekaizen-github/codekaizen-website-wp-deploy:v2'
                     args "-u root --entrypoint ''"
                 }
             }
@@ -135,10 +135,11 @@ pipeline {
                             keyFileVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE', \
                             // usernameVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_USERNAME' \
                         ), \
-                        string(credentialsId: 'codekaizen-website-wordpress-mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-name', variable: 'WORDPRESS_DB_NAME'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-user', variable: 'WORDPRESS_DB_USER'), \
-                        string(credentialsId: 'codekaizen-website-wordpress-wordpress-db-password', variable: 'WORDPRESS_DB_PASSWORD'), \
+                        conjurSecretCredential(credentialsId: 'codekaizen-website-mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD'), \
+                        conjurSecretCredential(credentialsId: 'codekaizen-website-wordpress-db-name', variable: 'WORDPRESS_DB_NAME'), \
+                        conjurSecretCredential(credentialsId: 'codekaizen-website-wordpress-db-user', variable: 'WORDPRESS_DB_USER'), \
+                        conjurSecretCredential(credentialsId: 'codekaizen-website-wordpress-db-password', variable: 'WORDPRESS_DB_PASSWORD'), \
+                        conjurSecretCredential(credentialsId: 'codekaizen-website-nextapp-revalidate-secret', variable: 'NEXTAPP_REVALIDATE_SECRET'), \
                     ]) {
                         sh '''
                         echo "Setting up SSH credentials inside Docker container..."
