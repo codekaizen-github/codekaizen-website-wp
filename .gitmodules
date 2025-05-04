@@ -1,0 +1,3 @@
+[submodule "html/wp-content/mu-plugins/wp-github-gist-block"]
+	path = html/wp-content/mu-plugins/wp-github-gist-block
+	url = https://github.com/codekaizen-github/wp-github-gist-block.git
