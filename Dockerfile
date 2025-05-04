@@ -3,6 +3,8 @@ FROM php:8.1-apache AS base
 ARG REPO=codekaizen-website-wp
 ARG OWNER=codekaizen-github
 
+ARG NODE_VERSION=22
+
 LABEL org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}
 
 # persistent dependencies
@@ -153,3 +155,11 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # RUN curl -O https://github.com/wp-graphql/wp-graphql/releases/latest/download/wp-graphql.zip && \
 #     wp plugin install wp-graphql.zip --activate --allow-root && \
 #     rm wp-graphql.zip
+
+
+# Download and install fnm:
+RUN apt update -y && apt install curl unzip -y \
+    && curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" \
+    && cp "$HOME/.fnm/fnm" /usr/bin && fnm install $NODE_VERSION \
+    && echo 'eval "$(fnm env --use-on-cd --shell bash)"' >> "$HOME/.bashrc"
+

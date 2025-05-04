@@ -9,7 +9,7 @@
 	"workspaceFolder": "/var/www/",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
-
+	// "postAttachCommand": "eval \"$(fnm env --use-on-cd --shell bash)\"",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
