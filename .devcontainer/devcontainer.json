@@ -24,7 +24,7 @@
 				"SanderRonde.phpstan-vscode"
 			]
 		}
-	}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [8080]
@@ -33,5 +33,7 @@
 	// "postCreateCommand": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html"
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	// "remoteUser": "root",
+
+	"postAttachCommand": "wp option set graphql_general_settings 'a:16:{s:16:\"graphql_endpoint\";s:7:\"graphql\";s:36:\"restrict_endpoint_to_logged_in_users\";s:3:\"off\";s:21:\"batch_queries_enabled\";s:2:\"on\";s:11:\"batch_limit\";s:2:\"10\";s:19:\"query_depth_enabled\";s:3:\"off\";s:15:\"query_depth_max\";i:10;s:22:\"query_analyzer_enabled\";s:3:\"off\";s:16:\"graphiql_enabled\";s:2:\"on\";s:31:\"show_graphiql_link_in_admin_bar\";s:2:\"on\";s:25:\"delete_data_on_deactivate\";s:2:\"on\";s:18:\"debug_mode_enabled\";s:3:\"off\";s:15:\"tracing_enabled\";s:3:\"off\";s:17:\"tracing_user_role\";s:13:\"administrator\";s:18:\"query_logs_enabled\";s:3:\"off\";s:19:\"query_log_user_role\";s:13:\"administrator\";s:28:\"public_introspection_enabled\";s:3:\"off\";}' --path=/var/www/html --allow-root"
 }
