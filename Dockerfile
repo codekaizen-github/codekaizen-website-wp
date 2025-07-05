@@ -150,12 +150,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
-
-# # Install WPGraphQL plugin
-# RUN curl -O https://github.com/wp-graphql/wp-graphql/releases/latest/download/wp-graphql.zip && \
-#     wp plugin install wp-graphql.zip --activate --allow-root && \
-#     rm wp-graphql.zip
-
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Download and install fnm:
 RUN apt update -y && apt install curl unzip -y \
