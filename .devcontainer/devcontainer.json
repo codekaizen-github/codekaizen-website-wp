@@ -15,7 +15,10 @@
 		"vscode": {
 			"extensions": [
 				"esbenp.prettier-vscode",
-				"gruntfuggly.todo-tree"			]
+				"gruntfuggly.todo-tree",
+				"github.copilot",
+				"github.copilot-chat"
+			]
 		}
 	}
 
